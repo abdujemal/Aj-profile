@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Slide, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
+import { useGlobalContext } from '../context'
 import BigTxt from './BigTxt'
 
 const useStyles = makeStyles({
@@ -19,6 +20,8 @@ const useStyles = makeStyles({
 
 const Projects = () => {
   const classes = useStyles()
+
+  const {projects} = useGlobalContext();
 
   const myProjects = [
     {name: "Social App", category: "Flutter App", link: 'https://www.google.com', img: "project.jpg"},
@@ -39,18 +42,17 @@ const Projects = () => {
        
             <Grid sx={{overflow: 'hidden'}} container justifyContent='center' mt={'120px'} spacing={3} mb='30px'>
               {
-                myProjects.map((project, i)=> 
-
-                 <Grid data-aos='slide-up' item xs={12} md={4}  m='5px'>
-                  <Box className={classes.project} sx={{borderRadius: '10px',position: 'relative', height:{xs:'200px', md:'350px'}, width:'100%',boxShadow: 'none', backgroundRepeat:'no-repeat', objectFit: 'contain', backgroundSize: 'cover', backgroundImage:`url(${project.img})`}}> 
-                    <Stack className={classes.contents} spacing={1} sx={{ height: '100%', display: {xs:'flex', md:'none'}}} justifyContent='center' alignItems='center'>
-                      <Typography color={{xs:'#ffbd39', md:'#ffffff'}} fontSize={35} fontWeight={600}>{project.name}</Typography>
-                      <Typography color={{xs:'#ffbd39', md:'#ffffff'}} fontSize={25}>{project.category}</Typography>
-                    </Stack>
-                    {/* <Box sx={{zIndex: 'revert',top: '0px',left: '0px',backgroundColor:'rgba(255, 189, 57, .7)', height: '100%',width: '100%', position:'absolute'}}/> */}
-                    
-                  </Box>
-                 </Grid>
+                projects.map((project, i)=> 
+                 <a href={project.link}>
+                  <Grid key={i} data-aos='slide-up' item xs={12} md={4}  m='5px'>
+                    <Box className={classes.project} sx={{borderRadius: '10px',position: 'relative', height:{xs:'200px', md:'350px'}, width:'100%',boxShadow: 'none', backgroundRepeat:'no-repeat', objectFit: 'contain', backgroundSize: 'cover', backgroundImage:`url(${project.img})`}}> 
+                      <Stack className={classes.contents} spacing={1} sx={{ height: '100%', display: {xs:'flex', md:'none'}}} justifyContent='center' alignItems='center'>
+                        <Typography sx={{textDecoration: 'none'}} color={{xs:'#ffbd39', md:'#ffffff'}} fontSize={35} fontWeight={600}>{project.name}</Typography>
+                        <Typography sx={{textDecoration: 'none'}} color={{xs:'#ffbd39', md:'#ffffff'}} fontSize={25}>{project.category}</Typography>
+                      </Stack>
+                    </Box>
+                  </Grid>
+                 </a>
                 )
               }
               
@@ -62,5 +64,6 @@ const Projects = () => {
   </Box>
   )
 }
+
 
 export default Projects
